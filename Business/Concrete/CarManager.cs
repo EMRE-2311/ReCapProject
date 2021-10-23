@@ -20,11 +20,19 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            if (car.DailyPrice < 0)
+            if (car.DailyPrice <= 0)
             {
-                return;
+                Console.WriteLine("daily price must be larger than 0");
             }
-            _carDao.Add(car);
+            else if (car.Description.Length <= 2)
+            {
+                Console.WriteLine("description must be larger than 2 words");
+            }
+            else
+            {
+                _carDao.Add(car);
+            }
+
         }
 
         public void Delete(Car car)
