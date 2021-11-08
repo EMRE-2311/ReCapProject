@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -9,13 +10,44 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryCarDao());
+            //CarMethodTest();
+            //BrandTest();
+            //ColorTest();
 
-            carManager.Add(new Car { Id = 5, BrandId = 3, ColorId = 6, DailyPrice = 0, ModelYear = 2015, Description = "TBC" });
-            foreach (var car in carManager.GetAll())
+            CarManager carManager = new(new EfCarDao());
+            var result = carManager.GetCarDetails();
+
+            foreach (var detail in result.Data)
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(detail.Description + "/" + detail.BrandName + "/" + detail.ColorName + "/" + detail.DailyPrice);
             }
+            Console.WriteLine(result.Message);
+        }
+
+        private static void ColorTest()
+        {
+            ColorManager colorManager = new(new EfColorDao());
+
+            colorManager.Add(new Color { Id = 1, Name = "blue" });
+            colorManager.Add(new Color { Id = 2, Name = "red" });
+        }
+
+        private static void BrandTest()
+        {
+            BrandManager brandManager = new(new EfBrandDao());
+
+            brandManager.Add(new Brand { Id = 1, Name = "mercedes" });
+            brandManager.Add(new Brand { Id = 2, Name = "ferrari" });
+        }
+
+        private static void CarMethodTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDao());
+
+
+
+            var carToShow = carManager.GetCarDetails();
+
         }
     }
 }
