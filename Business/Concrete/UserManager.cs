@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -11,29 +14,27 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
+        IUserDao _userDao;
+
+        public UserManager(IUserDao userDao)
+        {
+            _userDao = userDao;
+        }
+
         public IResult Add(User user)
         {
-            throw new NotImplementedException();
+            _userDao.Add(user);
+            return new SuccessResult();
         }
 
-        public IResult Delete(User user)
+        public IDataResult<User> GetByMail(string email)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<User>(_userDao.GetById(u => u.Email == email));
         }
 
-        public IDataResult<List<User>> GetAll()
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<User> GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IResult Update(User user)
-        {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<OperationClaim>>(_userDao.GetClaims(user));
         }
     }
 }

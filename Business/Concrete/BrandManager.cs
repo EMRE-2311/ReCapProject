@@ -26,14 +26,26 @@ namespace Business.Concrete
             return new  SuccessResult(Messages.BrandAdded);
         }
 
+        public IResult Delete(Brand brand)
+        {
+            _brandDao.Delete(brand);
+            return new SuccessResult(Messages.BrandDeleted);
+        }
+
         public IDataResult<Brand> Get(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Brand>(_brandDao.GetById(b =>b.Id == id), Messages.BrandListed);
         }
 
         public IDataResult<List<Brand>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Brand>>(_brandDao.GetAll(), Messages.BrandsListed);
+        }
+
+        public IResult Update(Brand brand)
+        {
+            _brandDao.Update(brand);
+            return new SuccessResult(Messages.BrandUpdated);
         }
     }
 }

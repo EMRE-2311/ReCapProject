@@ -1,4 +1,6 @@
-﻿using Core.Utilities.Results;
+﻿using Core.DataAccess;
+using Core.Utilities.Results;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface ICustomerDao
+    public interface ICustomerDao:IEntityRepository<Customer>
     {
 
     }

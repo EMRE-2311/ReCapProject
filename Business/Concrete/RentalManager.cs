@@ -32,12 +32,22 @@ namespace Business.Concrete
 
         public IResult Delete(Rental rental)
         {
-            throw new NotImplementedException();
+            return new SuccessResult(Messages.RentalDeleted);
+        }
+
+        public IDataResult<Rental> Get(int id)
+        {
+            return new SuccessDataResult<Rental>(_rentalDao.GetById(r => r.RentalId == id));
+        }
+
+        public IDataResult<List<Rental>> GetAll()
+        {
+            return new SuccessDataResult<List<Rental>>(_rentalDao.GetAll());
         }
 
         public IResult Update(Rental rental)
         {
-            throw new NotImplementedException();
+            return new SuccessResult(Messages.RentalUpdated);
         }
     }
 }
